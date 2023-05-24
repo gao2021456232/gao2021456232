@@ -1,1 +1,25 @@
 
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+int main()
+{
+	int i,j = 0;
+	printf("请输入需要判断的整数:>");
+	scanf("%d", &i);                                     
+	int k = 1;
+	for (j = 2; j < i; j++);
+	if (i % j == 0)
+
+	{
+		k = 0;
+		i = j;
+		
+	}
+	if (k == 1)
+		printf("%d是素数\n", i);
+	else
+		printf("%d不是素数\n", i);
+
+	
+	return 0;
+}  
