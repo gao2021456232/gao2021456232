@@ -171,6 +171,54 @@ int main()
 	
 	return 0;
 }  
+显示一个人的体重指数，并判断其健康程度
+#include <stdio.h>
+int main(){
+ float a,b;
+ float c,m; 
+ scanf("%f",&a);
+ scanf("%f",&b);
+ c=(a*703.0)/(b*b);
+ m=(int)(c*100.0)/100.0;
+ printf("BMI = %.2f\n",m);
+ if(c<18.5) 
+ printf("体重过轻\n");
+ else if(c>25) 
+ printf("体重超重\n"); 
+ else 
+ printf("体重最佳\n");
+ return 0;
+}
+
+
+
+
+判断一个数是否为回文数
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+int main()
+{
+    int num, m = 0, s = 0, n;
+
+    printf("请输入一个正整数：\n");
+    scanf("%d", &num);
+
+    s = num;
+    while (s != 0)
+    {
+        n = s % 10;   //n是s的末位数
+        m = m * 10 + n; //把s的末位数放到m的末位
+        s = s / 10;  //去掉末位数的新s
+    }
+
+    if (num == m)
+        printf("%d 是回文数\n", num);
+    else
+        printf("%d 不是回文数\n", num);
+
+    return 0;
+}
+
 
 
 
