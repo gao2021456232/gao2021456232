@@ -309,3 +309,41 @@ int main()
     }
     return 0;
 }
+
+
+
+<13>将元转化为硬币
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+int main()
+{   
+	int count_1 = 0;// 1分硬币数量  
+	int count_2 = 0; // 2分硬币数量   
+	int count_5 = 0; // 5分硬币数量    
+	int rmb; // 输入的人民币金额   
+	printf("请输入要兑换的人民币金额（单位：元）："); 
+	scanf("%d", &rmb);     
+	int total_count = 0; // 硬币总数   
+	int remaining_rmb = rmb * 100; // 剩余需要兑换的钱数（单位：分）  
+	while (total_count <50 && remaining_rmb > 0)
+	{      
+		if (remaining_rmb >= 5) 
+	{         
+			count_5++;  
+			remaining_rmb -= 5;   
+		} 
+		else if (remaining_rmb >= 2) 
+		{        
+			count_2++;    
+			remaining_rmb -= 2;  
+		} 
+		else 
+		{         
+			count_1++;   
+		remaining_rmb -= 1;   
+		}       
+		total_count++; 
+	}       
+	printf("使用 %d 枚 1 分硬币，%d 枚 2 分硬币，%d 枚 5 分硬币，共计 %d 枚硬币。\n",count_1, count_2, count_5, total_count);  
+	return 0;
+}
