@@ -233,33 +233,32 @@ int main()
 int main()
 {
     int x = 3;
-        int y = 5;
-        switch (x % 2)
+    int y = 5;
+    switch (x % 2)
+    {
+    case 1:
+        switch (y)
         {
         case 1:
-            switch (y)
-            {
-                case 1:
-                printf("李柯杰不仅是二锤");
-                 case 2:
-                printf("黄依婷不仅是二锤");
-                default:
-                printf("李若阳不仅是二锤");
-		case 3:
-                printf("王鸡薇是二锤"）;
-		case 4:
-		primtf("瞿书恒是二锤");
-                 case 5:
-                printf("张建杰不仅是二锤");
-            
-
-            }
+            printf("李柯杰不仅是二锤");
         case 2:
-            printf("还是舔狗");
+            printf("黄依婷不仅是二锤");
+        default:
+            printf("李若阳不仅是二锤");
+        case 3:
+            printf("王鸡薇不仅是二锤");
+        case 4:
+            printf("瞿书恒不仅是二锤");
+        case 5:
+            printf("张建杰不仅是二锤");
+
+
         }
+    case 2:
+        printf("还是舔狗");
+    }
     return 0;
 }
-
 
 
 <11>将三个数字从大到小依次排序
@@ -292,3 +291,21 @@ int main()
     }
     printf("%d%d%d", a, b, c);
     return 0;
+
+
+
+
+
+<12>2000年到3000的闰年
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+int main()
+{
+    int year = 0;
+    for (year = 2000; year <= 3000; year++)
+    {
+        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
+            printf(" %d", year);
+    }
+    return 0;
+}
