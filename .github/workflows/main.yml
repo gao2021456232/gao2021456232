@@ -569,3 +569,75 @@ int main()
 	printf("%lf\n", sum);
 	return 0;
 }
+
+
+<20>用函数来求解两个数的和
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include<stdlib.h>
+#include<time.h>
+int Add(int x, int y)
+{
+	int z = 0;
+	z = x + y;
+	return z;
+}
+int main()
+{
+	int a = 10;
+	int b = 30;
+	int sum = Add(a, b);
+	printf("%d\n", sum);
+
+
+<21>将字符串2替换为字符串1【strcpy--字符串拷贝，strlen--字符串长度有关】
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include<stdlib.h>
+#include<time.h>
+int main()
+{
+	char arr1[] = "bit";
+	char arr2[20] = "aaaaaaaaa";
+	strcpy(arr2, arr1);
+	printf("%s\n", arr2);
+}
+
+
+《22》memset（arr，‘*“，5）----将arr中的五个用*所替换
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include<stdlib.h>
+#include<time.h>
+int main()
+{
+	char arr[] = "hello world";
+	memset(arr, '*', 5);
+	printf("%s\n", arr);
+	return 0;
+	//输出的是：***** world
+}
+
+
+
+《23》用函数来判断两个数谁大
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include<stdlib.h>
+#include<time.h>
+int get_max(int x, int y)
+{
+	if (x > y)
+		return x;
+	else
+		return y;
+}
+int main()
+{
+	int a = 10;
+	int b = 20;
+	int max = get_max(a,b);
+		printf("max=%d\n", max);
+		return 0;
+}
