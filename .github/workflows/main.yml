@@ -764,3 +764,41 @@ int main()
 		printf("找到了，下标是 ：%d\n", ret);
 	}
 }
+
+
+<28>本题要求统计给定整数M和N区间内素数的个数并对它们求和。输入在一行中给出两个正整数M和N（1≤M≤N≤500）。
+#include <stdio.h>
+
+int main()
+{
+    int zuo = 0;
+    int you = 0;
+    int a = 0;
+    int sum = 0;
+    int count = 0;
+    int i = 1;
+    scanf("%d %d", &zuo, &you);
+    if (zuo >= 1 && zuo <= you && you <= 500)
+    {
+        for (zuo; zuo <= you; zuo++)
+        {
+            i = 1; // 先假设当前数为素数
+            for (a = 2; a < zuo; a++)
+            {
+                if (zuo % a == 0) // 不是素数
+                {
+                    i = 0; // 将 i 的值置为 0
+                    break; // 跳出内层循环
+                }
+            }
+            if (i) // 如果当前数为素数
+            {
+                count++; // 素数计数器加一
+                sum += zuo; // 素数和累加器加上当前数
+            }
+        }
+        printf("%d %d", count, sum); // 输出结果
+    }
+    return 0;
+}
+
