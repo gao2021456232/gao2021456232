@@ -797,8 +797,281 @@ int main()
                 sum += zuo; // 素数和累加器加上当前数
             }
         }
+	
+	
+	
+	
         printf("%d %d", count, sum); // 输出结果
     }
     return 0;
 }
 
+
+《29》写一个自行车存放系统
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_SIZE 100
+
+// 定义自行车的结构体
+typedef struct 
+{
+    char licensePlate[20];
+    char orderNumber[20];
+    char IDCard[20];
+    double fee;
+}
+Bicycle;
+
+// 存放自行车信息的数组
+Bicycle bicycles[MAX_SIZE];
+
+// 存放自行车数量的变量
+int count = 0;
+
+// 保存数据到文件
+void saveToFile() 
+{
+    FILE* file = fopen("data.txt", "w");
+    if (file == NULL) 
+    {
+        printf("无法打开文件\n");
+        return;
+    }
+
+    for (int i = 0; i < count; i++) 
+    {
+        fprintf(file, "%s %s %s %.2f\n", bicycles[i].licensePlate, bicycles[i].orderNumber,
+            bicycles[i].IDCard, bicycles[i].fee);
+    }
+
+    fclose(file);
+}
+
+// 从文件中加载数据
+void loadFromFile() 
+{
+    FILE* file = fopen("data.txt", "r");
+    if (file == NULL) 
+    {
+        return;
+    }
+
+    while (fscanf(file, "%s %s %s %lf\n", bicycles[count].licensePlate,
+        bicycles[count].orderNumber, bicycles[count].IDCard, &bicycles[count].fee) != EOF) 
+    {
+        count++;
+    }
+
+    fclose(file);
+}
+
+// 添加自行车信息
+void addBicycle() 
+{
+    Bicycle newBicycle;
+    printf("请输入车牌号：");
+    scanf("%s", newBicycle.licensePlate);
+    printf("请输入订单号：");
+    scanf("%s", newBicycle.orderNumber);
+    printf("请输入身份证号：");
+    scanf("%s", newBicycle.IDCard);
+    printf("请输入费用：");
+    scanf("%lf", &newBicycle.fee);
+
+    bicycles[count] = newBicycle;
+    count++;
+
+    printf("信息添加成功！\n");
+}
+
+// 显示自行车信息
+void displayBicycles() 
+{
+    if (count == 0)
+    {
+        printf("没有车辆信息，请先添加信息。\n");
+        return;
+    }
+
+    printf("车牌号\t订单号\t身份证号\t费用\n");
+    for (int i = 0; i < count; i++) 
+    {
+        printf("%s\t%s\t%s\t%.2f\n", bicycles[i].licensePlate, bicycles[i].orderNumber,
+            bicycles[i].IDCard, bicycles[i].fee);
+    }
+}
+
+// 查询自行车信息
+void queryBicycle() 
+{
+    char queryType;
+    char queryID[20];
+
+    printf("请选择查询方式（1 - 身份证号，2 - 订单号）：");
+    scanf(" %c", &queryType);
+    printf("请输入查询ID：");
+    scanf("%s", queryID);
+
+    for (int i = 0; i < count; i++) 
+    {
+        if ((queryType == '1' && strcmp(queryID, bicycles[i].IDCard) == 0) ||
+            (queryType == '2' && strcmp(queryID, bicycles[i].orderNumber) == 0)) 
+        {
+            printf("查询结果：\n");
+            printf("车牌号：%s\n订单号：%s\n身份证号：%s\n费用：%.2f\n",
+                bicycles[i].licensePlate, bicycles[i].orderNumber,
+                bicycles[i].IDCard, bicycles[i].fee);
+            return;
+        }
+    }
+
+    printf("未找到匹配的信息。\n");
+}
+
+// 修改自行车信息
+void modifyBicycle()
+{
+    char modifyID[20];
+
+    printf("请输入要修改信息的身份证号：");
+    scanf("%s", modifyID);
+
+    for (int i = 0; i < count; i++)
+    {
+        if (strcmp(modifyID, bicycles[i].IDCard) == 0)
+        {
+            printf("请输入新的车牌号：");
+            scanf("%s", bicycles[i].licensePlate);
+            printf("请输入新的订单号：");
+            scanf("%s", bicycles[i].orderNumber);
+            printf("请输入新的费用：");
+            scanf("%lf", &bicycles[i].fee);
+
+            printf("信息修改成功！\n");
+            return;
+        }
+    }
+
+    printf("未找到匹配的信息。\n");
+}
+
+// 删除自行车信息
+void deleteBicycle()
+{
+    char deleteID[20];
+
+    printf("请输入要删除信息的身份证号：");
+    scanf("%s", deleteID);
+
+    for (int i = 0; i < count; i++)
+    {
+        if (strcmp(deleteID, bicycles[i].IDCard) == 0)
+        {
+            for (int j = i; j < count - 1; j++)
+            {
+                bicycles[j] = bicycles[j + 1];
+            }
+            count--;
+
+            printf("信息删除成功！\n");
+            return;
+        }
+    }
+
+    printf("未找到匹配的信息。\n");
+}
+
+// 统计自行车信息
+void statisticsBicycles()
+{
+    double totalProfit = 0.0;
+    double maxProfit = 0.0;
+    int maxProfitIndex = -1;
+
+    for (int i = 0; i < count; i++) 
+    {
+        totalProfit += bicycles[i].fee;
+
+        if (bicycles[i].fee > maxProfit) 
+        {
+            maxProfit = bicycles[i].fee;
+            maxProfitIndex = i;
+        }
+    }
+
+    printf("车辆总盈利数：%.2f\n", totalProfit);
+
+    if (maxProfitIndex >= 0) 
+    {
+        printf("单个盈利最多的车辆信息：\n");
+        printf("车牌号：%s\n订单号：%s\n身份证号：%s\n费用：%.2f\n",
+            bicycles[maxProfitIndex].licensePlate, bicycles[maxProfitIndex].orderNumber,
+            bicycles[maxProfitIndex].IDCard, bicycles[maxProfitIndex].fee);
+    }
+    else 
+    {
+        printf("暂无车辆信息。\n");
+    }
+}
+
+int main() 
+{
+    loadFromFile();
+
+    while (1) 
+    {
+        printf("\n======= 自行车存放管理系统 =======\n");
+        printf("1. 添加车辆信息\n");
+        printf("2. 显示车辆信息\n");
+        printf("3. 查询车辆信息\n");
+        printf("4. 修改车辆信息\n");
+        printf("5. 删除车辆信息\n");
+        printf("6. 追加车辆信息\n");
+        printf("7. 车辆信息统计\n");
+        printf("0. 退出系统\n");
+        printf("请选择操作：");
+
+        int choice;
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+        case 1:
+            addBicycle();
+            saveToFile();
+            break;
+        case 2:
+            displayBicycles();
+            break;
+        case 3:
+            queryBicycle();
+            break;
+        case 4:
+            modifyBicycle();
+            saveToFile();
+            break;
+        case 5:
+            deleteBicycle();
+            saveToFile();
+            break;
+        case 6:
+            addBicycle();
+            saveToFile();
+            break;
+        case 7:
+            statisticsBicycles();
+            break;
+        case 0:
+            saveToFile();
+            exit(0);
+        default:
+            printf("无效的操作，请重新选择。\n");
+            break;
+        }
+    }
+
+    return 0;
+}
