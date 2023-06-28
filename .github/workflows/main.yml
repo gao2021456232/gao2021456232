@@ -919,3 +919,136 @@ int main()
 	return 0;
 
 }
+
+<32>给定两个数，在其区间内找出完数并求和
+int main()
+{
+    int m, n;
+    printf("请输入你要打印的范围");
+    scanf_s("%d %d", &m,&n);
+    int i = 0;
+    int k = 0;
+    int found = 0;
+    for (k = m; k <= n; k++)
+    {
+        int sum = 0;
+        //判断k是否为完数
+        for (i = 1; i <= k / 2; i++)
+        {
+            if (k % i == 0)
+                sum = sum + i;
+       
+        }
+        if (sum == k)
+        {
+            found = 1;
+            printf("% d = 1", k);
+            for (i = 2; i <= k / 2; i++)
+            {
+                if (k % i == 0)
+                    printf("%+d ", i);
+
+            }
+            printf("\n");
+        }
+
+    }
+    if (found != 1)
+        printf("不存在完数");
+}
+
+第二种方法：
+int main()
+{
+    int m, n;
+    printf("请输入你要打印的范围");
+    scanf_s("%d %d", &m,&n);
+    int i = 0;
+    int k = 0;
+    int found = 0;
+    int a[100];
+    
+    for (k = m; k <= n; k++)
+    {
+        int sum = 0;
+        int x = 0;
+        //判断k是否为完数
+        for (i = 1; i <= k / 2; i++)
+        {
+            if (k % i == 0)
+            {
+                sum = sum + i;
+                a[x] = i;
+                x++;
+            }
+       
+        }
+        if (sum == k)
+        {
+            found = 1;
+            printf("% d = 1", k);
+            for (i = 1; i < x; i++)
+            {
+                printf(" + %d", a[i]);
+            }
+            printf("\n");
+        }
+
+    }
+    if (found != 1)
+        printf("不存在完数");
+}
+
+《33》兔子繁衍类的斐波那契数列问题（给定兔子个数，判断几个月能生完
+int main()
+{
+    int m=0, n, f1, f2, f3;
+    printf("请输入你要给定的兔子数量：");
+    scanf_s("%d", &n);
+    
+    if (n < 2)
+    {
+        printf("1");
+    }
+    else
+    {
+        f1 = 1;
+        f2 = 1;
+        f3 = 2;
+        m = 3;
+        while (f3 < n)
+        {
+            f1 = f2;
+            f2 = f3;
+            f3 = f1 + f2;
+            m++;
+        }
+        printf("%d", m);
+    }
+}
+
+<34>小球落地问题，给定初始高度和反弹次数，求解总路程和最后一次反弹高度
+int main()
+{
+    int h, n;
+    double x, y;//x是总路程，y是反弹高度
+    printf("请输入初始化高度和反弹次数：");
+    scanf_s("%d%d", &h, &n);
+  
+    if (n == 0)
+        printf("0.0,0.0");
+    else
+    {
+        x = h;
+            y = h / 2.0;
+        int i = 1;//i是落地次数
+        while (i < n)
+        {
+            x = x + 2 * y;
+                y = y / 2;
+                i++;
+        }
+        printf(" %.1lf %.1lf", x, y);
+    }
+ 
+}
