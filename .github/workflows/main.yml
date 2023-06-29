@@ -1096,3 +1096,65 @@ int main()
         printf("%d", arr[i]);
 
 }
+
+
+《37》将数组中的元素逆置
+#include<string.h>
+void jiao_huan(char arr[])
+{
+    int left = 0;
+    int right = strlen(arr) - 1;
+    while (left < right)
+    {
+        int tmp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = tmp;
+        left++;
+        right++;
+    }
+}
+int main()
+{
+    char arr[] = "abcdefg";
+    jiao_huan(arr);
+    printf("%s", arr);
+}
+
+<38>计算一个数字的k次方
+double ji_suan(int a,int b)
+{
+    if (b < 0)
+        return (1.0 / (pow(a, -b)));
+    if (b == 0)
+        return 1;
+    else
+        return a * pow(a, b - 1);
+}
+int main()
+{
+    int n = 0;
+       int  k = 0;
+    printf("请输入你要算的数字和几次方：");
+    scanf_s("%d%d", &n, &k);
+
+
+    double j = ji_suan(n, k);
+    printf("%lf", j);
+    
+}
+
+<39>简单结构体
+typedef struct Stu
+{
+    char name[20];
+    short age;
+    char tele[12];
+    char sex[5];
+}Stu;
+int main()
+{
+    Stu s1={ "张建杰",20,"2021456232","男" };
+    printf("%s", s1.name);
+
+}
+
