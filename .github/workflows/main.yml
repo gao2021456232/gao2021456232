@@ -1110,7 +1110,7 @@ void jiao_huan(char arr[])
         arr[left] = arr[right];
         arr[right] = tmp;
         left++;
-        right++;
+        right--;
     }
 }
 int main()
@@ -1184,4 +1184,139 @@ int main()
 				printf("* ");
 			printf("\n");
 		}
+}
+
+《41》输入n个朋友的信息，包括姓名、生日、电话号码，本题要求编写程序，按照年龄从大到小的顺序依次输出通讯录
+#include<stdio.h>
+struct abook
+{
+    char name[15];
+    int bir;
+    char phone[20];
+};
+int main()
+{
+    struct abook temp,p[10];
+ int n,i,j;
+ scanf("%d",&n);
+ for(i=0;i<n;i++)
+ {
+     scanf("%s %d %s",&p[i].name,&p[i].bir,&p[i].phone);
+ }
+ for(i=1;i<n;i++)
+     for(j=0;j<n-i;j++)
+     {
+         if(p[j].bir>p[j+1].bir)
+         {
+             temp=p[j];
+             p[j]=p[j+1];
+             p[j+1]=temp;
+         }	
+     }
+ for(i=0;i<n;i++)
+     printf("%s %d %s\n",p[i].name,p[i].bir,p[i].phone);
+ return 0;
+}
+
+
+《42》上三角矩阵指主对角线以下的元素都为0的矩阵；主对角线为从矩阵的左上角至右下角的连线。
+
+本题要求编写程序，判断一个给定的方阵是否上三角矩阵。
+
+输入格式：
+输入第一行给出一个正整数T，为待测矩阵的个数。接下来给出T个矩阵的信息：每个矩阵信息的第一行给出一个不超过10的正整数n。随后n行，每行给出n个整数，其间以空格分隔。
+
+输出格式：
+每个矩阵的判断结果占一行。如果输入的矩阵是上三角矩阵，输出“YES”，否则输出“NO”。
+#include <stdio.h>
+
+int is_upper_triangular(int shuzu[][10], int n)
+{
+	int i, j;
+	for (i = 1; i < n; i++)
+	{
+		for (j = 0; j < i; j++)
+		{
+			if (shuzu[i][j] != 0)
+				return 0;
+		}
+	}
+	return 1;
+}
+
+int main()
+{
+	int shuzu[10][10];
+	int t, n, i, j, k;
+	
+	printf("请输入矩阵个数：");
+	scanf("%d", &t);
+	
+	for (k = 1; k <= t; k++)
+	{
+		printf("请输入几维数组：");
+		scanf("%d", &n);
+		
+		for (i = 0; i < n; i++)
+		{
+			for (j = 0; j < n; j++)
+			{
+				printf("请给数组元素赋值：");
+				scanf("%d", &shuzu[i][j]);
+			}
+		}
+		
+		if (is_upper_triangular(shuzu, n))
+			printf("是上三角矩阵\n");
+		else
+			printf("不是上三角矩阵\n");
+	}
+
+	return 0;
+}
+
+
+
+《43》本题要求编写程序，以hh:mm:ss的格式输出某给定时间再过n秒后的时间值（超过23:59:59就从0点开始计时）。
+
+输入格式：
+输入在第一行中以hh:mm:ss的格式给出起始时间，第二行给出整秒数n（<60）。
+
+输出格式：
+输出在一行中给出hh:mm:ss格式的结果时间。
+
+输入样例：
+11:59:40
+30
+输出样例：
+12:00:10
+#include <stdio.h>
+
+#define MAX_SECONDS 24 * 60 * 60
+
+int main() {
+    int hh, mm, ss;
+    int n;
+
+    // 读取起始时间
+    scanf("%d:%d:%d", &hh, &mm, &ss);
+    
+    // 读取整秒数n
+    scanf("%d", &n);
+
+    // 将起始时间转换为总秒数
+    int totalSeconds = hh * 3600 + mm * 60 + ss;
+
+    // 计算新的总秒数
+    int newTotalSeconds = (totalSeconds + n) % MAX_SECONDS;
+
+    // 将新的总秒数转换为hh:mm:ss格式
+    hh = newTotalSeconds / 3600;
+    mm = (newTotalSeconds % 3600) / 60;
+    ss = newTotalSeconds % 60;
+
+    // 输出结果
+    printf("%02d:%02d:%02d\n", hh, mm, ss);
+
+    return 0;
 }
